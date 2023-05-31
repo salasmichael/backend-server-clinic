@@ -27,12 +27,15 @@ router.post( '/',
 
 router.put( '/:id', 
     [
-     
+        valiarJWT,
+        check('nombre','El hospital debe tener un nombre').not().isEmpty(),
+        validarCampos
     ],
     actualizarHospital 
 );
 
 router.delete( '/:id',
+        valiarJWT,
         eliminarHospital
     );
 

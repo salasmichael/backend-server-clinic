@@ -44,19 +44,69 @@ const crearHospital = async(req, res)=>{
 
 const actualizarHospital = async(req, res)=>{
 
-    res.json({
-        status:'ok',
-        msg:''
-    });
+    const id    = req.params.id;
+    const uid   = req.uid;
+
+    try {
+
+        const hospital = await Hospital.findById( id );
+        if( !hospital ){
+            return  res.status(400).json({
+                        status:false,
+                        msg:'Hospital no encontrado'
+                    });
+        }
+
+        const cabiosHospital = {
+            ...req.body,
+            usuario:uid
+        }
+
+        const hospitalActualizado = await Hospital.findByIdAndUpdate( id, cabiosHospital,{ new:true } );
+
+        res.json({
+            status:true,
+            hospital:hospitalActualizado
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.json({
+            status:false,
+            msg:'Error inesperado ver logs'
+        });
+    }
 
 }
 
 const eliminarHospital = async(req, res)=>{
 
-    res.json({
-        status:'ok',
-        msg:''
-    });
+    const id    = req.params.id;
+
+    try {
+
+        const hospital = await Hospital.findById( id );
+        if( !hospital ){
+            return  res.status(400).json({
+                        status:false,
+                        msg:'Hospital no encontrado'
+                    });
+        }
+
+        await Hospital.findByIdAndDelete( id );
+
+        res.json({
+            status:true,
+            msg:'Hospital eliminado'
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.json({
+            status:false,
+            msg:'Error inesperado ver logs'
+        });
+    }
 
 }
 
