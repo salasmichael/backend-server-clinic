@@ -9,7 +9,8 @@ const { dbConection } = require('./database/config');
 const app = express();
 
 // Configurar CORS
-app.use( cors() );
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // Carpeta publica
 app.use( express.static('public') );

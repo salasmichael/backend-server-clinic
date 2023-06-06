@@ -8,7 +8,7 @@ const generarJWT = async( uid ) =>{
         }
     
         jwt.sign( payload, process.env.JWT_SECRET, {
-            expiresIn:'12h'
+            expiresIn:'32h'
         }, (err, token)=>{
 
             if( err ){

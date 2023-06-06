@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { login, googleSingIn, renewToken } = require('../controllers/auth');
-const { valiarJWT } = require('../middlewares/validar-jwt');
+const { validarJWT } = require('../middlewares/validar-jwt');
 
 const router = Router();
 
@@ -24,7 +24,7 @@ router.post( '/google',
 );
 
 router.get( '/renew', 
-    valiarJWT,
+    validarJWT,
     renewToken 
 );
 
